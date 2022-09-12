@@ -1,0 +1,21 @@
+<mat-toolbar>
+  <span>Binder</span>
+  <button mat-button color="primary" (click)="export()">export</button>
+</mat-toolbar>
+<div id="container">
+  <div id="filesHolder">
+
+    <p *ngFor="let item of this.epubService.intermediateFiles; let i = index" [attr.data-index]="i" (click)="setFile(i)"
+      class="filenameSelector">{{item.filename}} </p>
+  </div>
+  <div id="editorHolder">
+    <div>
+      <p>{{this.codeHolder.filename}}</p>
+    </div>
+    <ngx-monaco-editor class="my-code-editor" [options]="editorOptions" [(ngModel)]="this.codeHolder.src">
+    </ngx-monaco-editor>
+  </div>
+</div>
+<!-- <mat-toolbar>
+  <button mat-button color="primary" (click)="export()">export</button>
+</mat-toolbar> -->

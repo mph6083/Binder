@@ -1,0 +1,28 @@
+#container {
+    display: flex;
+    height: 95%;
+}
+
+#editorHolder {
+    flex-grow: 1;
+    height:95%;
+}
+
+#filesHolder{
+    overflow-y: scroll;
+    height:95%;
+}
+
+.filenameSelector{
+    cursor: pointer;
+}
+.filenameSelector:hover{
+  color: blue
+}
+.filenameSelector:active{
+  color:blueviolet;
+}
+
+.my-code-editor{
+    height:100%;
+}

@@ -1,0 +1,10 @@
+<p>ingest works!</p>
+<h3>Choose the local(s) zip file(s)</h3>
+<p class="note">Note : your browser will process the zip file, don't choose a file too big !</p>
+<div class="form-group">
+  <label for="file">Choose File</label>
+  <input type="file"
+         id="file"
+         accept=".zip,.epub"
+         (change)="handleFileInput($event)">
+</div>
