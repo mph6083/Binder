@@ -24,9 +24,9 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <!-- <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
-  </a> -->
+  <a >
+    <img src="bitmap.png" alt="Logo" height="80">
+  </a>
 
   <h1 align="center">Binder</h1>
 
@@ -72,34 +72,25 @@
   </ol>
 </details> -->
 
-
+[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
 
-Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
-* You should implement DRY principles to the rest of your life :smile:
+There are many ways to create a pdf for bookbinding; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a unified software system for easy editing and exportation of large EPUB books and remove many manual steps that are required using other methods.
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
+Benifits to traditional EPUB conversion for binding:
+* Automates Injestion and exportation 
+* allows for custom css and reusable code for similar projects
+* outputs to EPUB and PDF for versitile distribution
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
 ### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
-
-
-* [![Angular][Angular.io]][Angular-url]
+* [Angular][Angular-url]
 * [monaco-editor]()
 * [jspdf]()
 * [jszip]()
@@ -111,31 +102,32 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
 _Nodejs is required to run the build tools and the binder pdfserver_
 
+clone repositories Binder & Binder-PdfServer. The relative location of both projects is not important.
 
-### Installation
+### **Installation**
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+_for production building and other development flags see Angular cli reference pages_
 
-1. install prerequisite software
-<!-- 2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ``` -->
+_Binder-PdfServer is required to run for noraml program operation, after cloning the Binder-PdfServer follow the same steps listed below in that directory. default port: 3000_
+
+1. Update npm to latest version
+```sh
+npm i -g npm@latest
+```
+2. Install Node Modules
+```sh
+npm install
+```
+1. Run Development server (default port 4200)
+```sh
+npm run start
+```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -144,44 +136,100 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+_Ebooks can be found on the project guetenberg website. They are all public domain and can be modified and distributed in any way you see fit._
 
-_For more examples, please refer to the [Documentation](https://example.com)_
+Steps for creating a pdf:
+
+1. Download ebook from project guetenberg. We highly recomend little women; it's a great read.
+2. open web application most likely at http://localhost:4200.
+3. click `new project`.
+4. select `Choose File` and select the file for the downloaded ebook.
+5. Edit files.
+6. Press `export` in the top left of the editor screen.
+7. Select `render to pdf` to download a pdf for binding or Select `download epub zip` to save your changes for editing later
+
+
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- ROADMAP -->
-## Roadmap
-
-<!-- - [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish -->
-
-<!-- See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p> -->
+## Editing Files
 
 
+
+Files are edited via the Editor page. Only text files are avalible for editing and viewing. 
+
+*Note:* Images will not be shown and the EPUB will need to be downloaded and converted to a zip file to see/edit images. All images will be coppied over to the downloadable epub and will be rendered when included in the finished PDF.
+### __*.html | *.xhtml | *.htm__
+
+Epubs use the XHTML5 syntax and accept all valid HTML. These files makeup the displayed content of the EPUB file.
+
+### **OEBPS/content.opf**
+
+while the name of the file is unlikely to vary, the file may have a different name or file path. To find the file that contains the manifest and metadata open the `META-INF/container.xml` file and find this line:
+
+`<rootfile full-path="{YOUR FILE WILL BE LISTED HERE}" media-type="application/oebps-package+xml"/>`
+
+### Metadata
+The metadata will be found at the top of the content file. At this time the information will not be embedded into the pdf but will continue to provide information for the ebook and it is recomended when you change the files to add yourself as a contributor under the `<dc:creator>` tag with the syntax:
+
+`
+<dc:contributor opf:role="{YOUR ROLE HERE}" opf:file-as="{YOUR NAME}">{YOUR NAME}</dc:contributor>
+`
+
+### manifest
+The `<manifest>` contains All the files that are included in the EPUB file and their ID, Media Type, and url/href. The files included are not gaurented to be in the correct order and for ordering you should look to the `<spine>`.
+
+### spine
+The `<spine>` contains an ordered list of `<itemref>`'s detailing the contents of the EPUB in the order it should be displayed. Especially for books, this is not the same as the list of chapters or sections. however the table of contents is specified in the spine by the attribute `<spine toc="">`.
+
+The `<Itemref>`'s inside the spine reference the `<item>` tags in the manifest. They are in the format:
+
+`<itemref idref="{ITEM ID}" linear="yes"/>`
+
+`<item href="{PATH TO FILE}" id="{ITEM ID}" media-type="application/xhtml+xml"/>`
+</br>
+</br>
+### **BinderCss.html**
+The `BinderCss.html` file is not standard to the epub file format. It is automatically injected into the ingested epub file. It does not/will not be added to the manifest. It contains the template code for setting helpful page css special attributes for printing . It needs to be uncommented. This serves as a helper file which will not change the EPUB for regular consumption and serves only to specify the configuration for exporting to pdf for binding. For aditional information on available css see the `@page` CSS at-rule.
+
+The file contains sample css for size and page numbers shown below:
+```html
+<style>
+@page{
+  /* Page Size & orientation */
+  /* size: A4 landscape; */
+
+
+  /* page numbers */
+  /* @bottom-left {
+      content: counter(page) ' of ' counter(pages);
+  } */
+}
+</style>
+```
+
+#### **Note on coding examples**
+For all code examples, user fields will be denoted by `{ALL CAPS TEXT}`.
+
+As an example for the user feild value Matthew for the code block `<test input="{HELLO}">` would have a resulting code block of
+`<test input="Matthew">` **NOT** `<test input="{Matthew}">`
 
 <!-- CONTRIBUTING -->
 ## Contributing
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
+This software system while functional is not the most user friendly. Any contributions  are **greatly appreciated**.
 
 If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
+
 
 1. Fork the Project
 2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+5. Open a Pull Request.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -192,9 +240,9 @@ Don't forget to give the project a star! Thanks again!
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+**We request that all EPUB files you use in this program you have the rights to modify and that you follow all aplicable laws in the use of the software and with any files created by the software.**
 
 <!-- CONTACT -->
 ## Contact
@@ -239,7 +287,7 @@ Use this space to list resources you find helpful and would like to give credit 
 [license-url]: https://github.com/othneildrew/Best-README-Template/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/othneildrew
-[product-screenshot]: images/screenshot.png
+[product-screenshot]: binder-editior.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
